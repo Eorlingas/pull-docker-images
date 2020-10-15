@@ -21,35 +21,10 @@ before_script:
  
 script:
   - |
-    docker pull gcr.io/knative-releases/knative.dev/serving/cmd/activator@sha256:8e606671215cc029683e8cd633ec5de9eabeaa6e9a4392ff289883304be1f418
-    activator=$(docker images | grep gcr.io/knative-releases/knative.dev/serving/cmd/activato | awk '{print $3}')
-    docker tag $activator $DOCKERHUB_USERNAME/activator:1.0
-    docker push $DOCKERHUB_USERNAME/activator:1.0
-
-    docker pull gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler-hpa@sha256:5e0fadf574e66fb1c893806b5c5e5f19139cc476ebf1dff9860789fe4ac5f545
-    autoscalerhpa=$(docker images | grep gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler-hpa | awk '{print $3}')
-    docker tag $autoscalerhpa $DOCKERHUB_USERNAME/autoscaler-hpa:1.0
-    docker push $DOCKERHUB_USERNAME/autoscaler-hpa:1.0
-
     docker pull gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler@sha256:ef1f01b5fb3886d4c488a219687aac72d28e72f808691132f658259e4e02bb27
     autoscaler=$(docker images | grep gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler | awk '{print $3}')
     docker tag $autoscaler $DOCKERHUB_USERNAME/autoscaler:1.0
     docker push $DOCKERHUB_USERNAME/autoscaler:1.0
-
-    docker pull gcr.io/knative-releases/knative.dev/serving/cmd/controller@sha256:5ca13e5b3ce5e2819c4567b75c0984650a57272ece44bc1dabf930f9fe1e19a1
-    controller=$(docker images | grep gcr.io/knative-releases/knative.dev/serving/cmd/controller | awk '{print $3}')
-    docker tag $controller $DOCKERHUB_USERNAME/controller:1.0
-    docker push $DOCKERHUB_USERNAME/controller:1.0
-
-    docker pull gcr.io/knative-releases/knative.dev/serving/cmd/networking/istio@sha256:727a623ccb17676fae8058cb1691207a9658a8d71bc7603d701e23b1a6037e6c
-    istio=$(docker images | grep gcr.io/knative-releases/knative.dev/serving/cmd/networking/istio | awk '{print $3}')
-    docker tag $istio $DOCKERHUB_USERNAME/istio:1.0
-    docker push $DOCKERHUB_USERNAME/istio:1.0
-
-    docker pull gcr.io/knative-releases/knative.dev/serving/cmd/webhook@sha256:1ef3328282f31704b5802c1136bd117e8598fd9f437df8209ca87366c5ce9fcb
-    webhook=$(docker images | grep gcr.io/knative-releases/knative.dev/serving/cmd/webhook | awk '{print $3}')
-    docker tag $webhook $DOCKERHUB_USERNAME/webhook:1.0
-    docker push $DOCKERHUB_USERNAME/webhook:1.0
 
 after_script:
   - docker images --format "{{.Repository}}:{{.Tag}}" | grep $DOCKERHUB_USERNAME
