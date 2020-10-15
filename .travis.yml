@@ -12,7 +12,7 @@ language: bash
 services: docker
 
 before_script:
-  - docker login "$ALI_REGISTRY" -u "$ALI_USERNAME" -p $ALI_PASSWORD
+  - docker login --username=fuliqiang1026 registry.cn-beijing.aliyuncs.com --password=$ALI_PASSWORD
  
 script:
   - |
