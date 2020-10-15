@@ -8,11 +8,16 @@
 #    choose "more options-->settings-->Environment Variables"
 
 os: linux
-language: bash
+dist: bionic
+language: shell
 services: docker
 
+env:
+  global:
+    - DOCKERHUB_USERNAME=fuliqiang
+
 before_script:
-  - docker login --username=fuliqiang1026 registry.cn-beijing.aliyuncs.com --password=$ALI_PASSWORD
+  - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
  
 script:
   - |
@@ -24,12 +29,12 @@ script:
       echo [$icount/$count]: $image
       image_name=${image##*/}
       docker pull $image
-      docker tag $image $ALI_REGISTRY/$ALI_REGISTRY_NAMESPACE/$image_name
-            
-      # push to aliyun registry
-      docker push $ALI_REGISTRY/$ALI_REGISTRY_NAMESPACE/$image_name
+      docker tag $image $DOCKERHUB_USERNAME/$image_name
+      
+      # push to dockerhub
+      docker push $DOCKERHUB_USERNAME/$image_name
+      
       ((icount++))
     done
-
 after_script:
-  - docker images --format "{{.Repository}}:{{.Tag}}" | grep $ALI_REGISTRY
+  - docker images --format "{{.Repository}}:{{.Tag}}" | grep $DOCKERHUB_USERNAME
