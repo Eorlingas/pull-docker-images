@@ -19,7 +19,8 @@ env:
     - ALI_REGISTRY_NAMESPACE=zhst-kubeflow
 
 before_script:
-  - echo "$ALI_PASSWORD" | docker login "$ALI_REGISTRY_URL" -u "$ALI_USERNAME" --password-stdin
+  - echo "$ALI_PASSWORD"
+  - docker login "$ALI_REGISTRY_URL" -u "$ALI_USERNAME" --password-stdin
  
 script:
   - |
