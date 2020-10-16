@@ -21,10 +21,33 @@ before_script:
  
 script:
   - |
-    docker pull gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler@sha256:ef1f01b5fb3886d4c488a219687aac72d28e72f808691132f658259e4e02bb27
-    autoscaler=$(docker images | grep gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler | awk '{print $3}')
-    docker tag $autoscaler $DOCKERHUB_USERNAME/autoscaler:1.0
-    docker push $DOCKERHUB_USERNAME/autoscaler:1.0
+    docker pull gcr.io/knative-releases/knative.dev/serving/cmd/queue:0.11.1
+    docker tag gcr.io/knative-releases/knative.dev/serving/cmd/queue:0.11.1 $DOCKERHUB_USERNAME/queue:0.11.1
+    docker push $DOCKERHUB_USERNAME/queue:0.11.1
+
+    docker pull gcr.io/knative-releases/knative.dev/serving/cmd/activator:0.11.1
+    docker tag gcr.io/knative-releases/knative.dev/serving/cmd/activator:0.11.1 $DOCKERHUB_USERNAME/activator:0.11.1
+    docker push $DOCKERHUB_USERNAME/activator:0.11.1
+
+    docker pull gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler-hpa:0.11.1
+    docker tag gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler-hpa:0.11.1 $DOCKERHUB_USERNAME/autoscaler-hpa:0.11.1
+    docker push $DOCKERHUB_USERNAME/autoscaler-hpa:0.11.1
+
+    docker pull gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler:0.11.1
+    docker tag gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler:0.11.1 $DOCKERHUB_USERNAME/autoscaler:0.11.1
+    docker push $DOCKERHUB_USERNAME/autoscaler:0.11.1
+
+    docker pull gcr.io/knative-releases/knative.dev/serving/cmd/controller:0.11.1
+    docker tag gcr.io/knative-releases/knative.dev/serving/cmd/controller:0.11.1 $DOCKERHUB_USERNAME/controller:0.11.1
+    docker push $DOCKERHUB_USERNAME/controller:0.11.1
+
+    docker pull gcr.io/knative-releases/knative.dev/serving/cmd/webhook:0.11.1
+    docker tag gcr.io/knative-releases/knative.dev/serving/cmd/webhook:0.11.1 $DOCKERHUB_USERNAME/webhook:0.11.1
+    docker push $DOCKERHUB_USERNAME/webhook:0.11.1
+
+    docker pull gcr.io/knative-releases/knative.dev/serving/cmd/networking/istio:0.11.1
+    docker tag gcr.io/knative-releases/knative.dev/serving/cmd/networking/istio:0.11.1 $DOCKERHUB_USERNAME/istio:0.11.1
+    docker push $DOCKERHUB_USERNAME/istio:0.11.1
 
 after_script:
   - docker images --format "{{.Repository}}:{{.Tag}}" | grep $DOCKERHUB_USERNAME
