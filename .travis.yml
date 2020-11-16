@@ -24,7 +24,7 @@ script:
     ls
     docker images
     docker build -t flq/pytorch:flq .
-    activator=$(docker images | grep -v cuda | awk '{print $3}')
+    activator=$(docker images | grep none | awk '{print $3}')
     docker images
     echo "$activator"
     docker tag $activator $DOCKERHUB_USERNAME/pytorch:v1.0
