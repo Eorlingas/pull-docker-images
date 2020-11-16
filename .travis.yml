@@ -23,6 +23,7 @@ script:
   - |
     ls
     docker build -t pytorch:flq .
+    docker images
     docker tag pytorch:flq $DOCKERHUB_USERNAME/pytorch:v1.0
     docker push $DOCKERHUB_USERNAME/pytorch:v1.0
 
