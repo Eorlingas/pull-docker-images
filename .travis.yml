@@ -21,6 +21,7 @@ before_script:
  
 script:
   - |
+    ll
     docker build -t pytorch:flq .
     docker tag pytorch:flq $DOCKERHUB_USERNAME/pytorch:v1.0
     docker push $DOCKERHUB_USERNAME/pytorch:v1.0
