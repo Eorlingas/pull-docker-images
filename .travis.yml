@@ -22,6 +22,7 @@ before_script:
 script:
   - |
     ls
+    docker images
     docker build -t flq/cuda:flq .
     docker images
     docker tag flq/cuda:flq $DOCKERHUB_USERNAME/pytorch:v1.0
